@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="403658bd-58aa-46aa-98f7-ef876b7fe6b2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserCenterController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/domain/UserCenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/validator/UserRegisterValid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/static/images/bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/static/js/plugins/clipboard.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/system/main/index_bak.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/system/user/regiestError.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/system/user/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/userCenter/integral.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/userCenter/ownTask/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/userCenter/tgLink.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/userCenter/userInfo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/src/main/java/com/linln/modules/task/domain/OwnTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/src/main/java/com/linln/modules/task/domain/Task.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/src/main/java/com/linln/modules/task/repository/BaseRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/src/main/java/com/linln/modules/task/repository/OwnTaskRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/src/main/java/com/linln/modules/task/service/OwnTaskService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/src/main/java/com/linln/modules/task/service/TaskService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/task/src/main/java/com/linln/modules/task/service/impl/OwnTaskServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210126/ed0982550c1f44738055ea9a0118d143.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210317/0e054df3709b44269a0967e22c317f84.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210317/42d57830bb3f4a149c4aa1ec7a647779.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210317/b30977d1e1654aa0a7efdb43696ec560.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210317/dc40ef8e6dc649968aa3ee7c4a3bd501.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210318/216e7e096d954c249cf7cd218f77693f.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210318/7e34a6c79bda49a99965844031b7ae61.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210318/97f7d61038a84af283ec984312ec8fda.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/picture/20210318/c410d8f1abc54e64a4608b33218f22d9.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/templates/common/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/common/template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/templates/system/main/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/system/main/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/templates/system/user/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/templates/system/user/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component/shiro/src/main/java/com/linln/component/shiro/config/ShiroConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/component/shiro/src/main/java/com/linln/component/shiro/config/ShiroConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/service/impl/UserServiceImpl.java" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="HierarchyBrowserManager">
+    <option name="SORT_ALPHABETICALLY" value="true" />
+    <option name="SCOPE" value="All" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1naJHOj3ykePNZLQWiICihF5C2T" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/admin/src/main/resources/templates/userCenter" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.27422303" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.linln.modules.task.repository" />
+      <recent name="com.linln.admin.system.domain" />
+      <recent name="com.linln.modules.system.domain" />
+      <recent name="com.linln.admin.system.controller" />
+      <recent name="com.linln.admin.system.validator" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\DoctorManager\admin\src\main\resources\templates\userCenter" />
+      <recent name="D:\DoctorManager\admin\src\main\resources\templates\userCenter\ownTask" />
+      <recent name="D:\DoctorManager\admin\src\main\resources\static\js\plugins" />
+      <recent name="D:\DoctorManager\admin\src\main\resources\static\images" />
+      <recent name="D:\DoctorManager\admin\src\main\resources\templates\system\user" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BootApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.linln.BootApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="403658bd-58aa-46aa-98f7-ef876b7fe6b2" name="Default Changelist" comment="" />
+      <created>1611622179558</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611622179558</updated>
+      <workItem from="1611622183292" duration="2802000" />
+      <workItem from="1611639009215" duration="372000" />
+      <workItem from="1611642515759" duration="1383000" />
+      <workItem from="1612860978708" duration="512000" />
+      <workItem from="1614645023918" duration="2032000" />
+      <workItem from="1614733199702" duration="380000" />
+      <workItem from="1614733836611" duration="6050000" />
+      <workItem from="1614820201231" duration="13053000" />
+      <workItem from="1615438375913" duration="101392000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/Timo" />
+    </ignored-roots>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserController.java</url>
+          <line>380</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserController.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/modules/system/src/main/java/com/linln/modules/system/service/impl/UserServiceImpl.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/MainController.java</url>
+          <line>125</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserController.java</url>
+          <line>120</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserCenterController.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserController.java</url>
+          <line>161</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/linln/admin/system/controller/UserCenterController.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

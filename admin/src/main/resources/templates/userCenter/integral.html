@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<div class="layui-form-item" style="margin-top: 20px;">
+    <label class="layui-form-label">我的积分：</label>
+    <div class="layui-input-inline" style="width: 300px;">
+        <input type="text" id="tgLinkText"  class="layui-input" th:value="${user.jf}">
+    </div>
+    <button type="button" class="layui-btn" id="#tgLinkText">提现</button>
+</div>
+
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery.mousewheel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/clipboard.min.js}"></script>
+<script>
+    $(document).ready(function(){
+
+
+    });
+
+</script>
+</body>
+</html>

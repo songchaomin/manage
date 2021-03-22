@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<div class="layui-form-item" style="margin-top: 20px;">
+    <label class="layui-form-label">推广链接：</label>
+    <div class="layui-input-inline" style="width: 300px;">
+        <input type="text" id="tgLinkText"  class="layui-input" th:value="${user.tgLink}">
+    </div>
+    <button type="button" class="layui-btn"  data-clipboard-action="copy" data-clipboard-target="#tgLinkText">复制链接</button>
+    <button th:if="${user.username}=='admin' and ${user.tgLink}==''" class="layui-btn"  id="genTgLink">生成推广码</button>
+</div>
+
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery.mousewheel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/clipboard.min.js}"></script>
+<script>
+    $(document).ready(function(){
+        var clipboard = new ClipboardJS('.layui-btn');
+        clipboard.on('success', function(e) {
+            alert("复制成功");
+        });
+        clipboard.on('error', function(e) {
+            alert("复制失败");
+        });
+
+
+        $("#genTgLink").click(function(){
+            $.get("/userCenter/generateTgLink/1",function(res){
+               $("#tgLinkText").val(res);
+            });
+
+        });
+
+
+    });
+
+</script>
+</body>
+</html>
