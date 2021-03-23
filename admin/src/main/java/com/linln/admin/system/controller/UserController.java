@@ -25,6 +25,7 @@ import com.linln.modules.system.domain.Role;
 import com.linln.modules.system.domain.User;
 import com.linln.modules.system.repository.UserRepository;
 import com.linln.modules.system.service.RoleService;
+import com.linln.modules.system.service.SysCountService;
 import com.linln.modules.system.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,8 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private SysCountService sysCountService;
     /**
      * 列表页面
      */
@@ -94,20 +97,16 @@ public class UserController {
     public String registerLogin(@PathVariable("pid") Long pid ,Model model) {
         //判断PID是否存在，不存在不允许注册
         User user = userService.getById(pid);
+        //获取会员编码
+        int sysCount = sysCountService.getSysCount();
         if(user ==null){
             model.addAttribute("msg", "系统中不存在推广的用户编码！");
             return "/system/user/regiestError";
         }
-
-        List<User> users = userService.getPid(pid);
-        if (users.size()>=1){
-            model.addAttribute("msg", "推广码已经被使用，不在再次注册！");
-            return "/system/user/regiestError";
-        }
         model.addAttribute("user", pid);
+        model.addAttribute("memberNo", sysCount);
         return "/system/user/register";
     }
-
 
     /**
      * 保存添加/修改的数据
@@ -117,6 +116,7 @@ public class UserController {
     @PostMapping("/register")
     @ResponseBody
     public ResultVo register(@Validated UserRegisterValid valid, @EntityParam User user, HttpServletRequest request) {
+        ResultVo resultVo=new ResultVo();
         // 验证数据是否合格
         if (user.getId() == null) {
             // 判断密码是否为空
@@ -160,7 +160,10 @@ public class UserController {
         String requestURL = request.getRequestURL()+"/"+user.getId();
         //更新推广链接
         userService.updateTgLink(requestURL,user.getId());
-        return ResultVoUtil.SAVE_SUCCESS;
+        resultVo.setMsg("注册成功！");
+        resultVo.setData(user);
+        resultVo.setCode(200);
+        return resultVo;
     }
 
     /**
@@ -222,6 +225,8 @@ public class UserController {
             EntityBeanUtil.copyProperties(beUser, user, fields);
         }
 
+
+        user.setStatus((byte)2);
         // 保存数据
         userService.save(user);
         return ResultVoUtil.SAVE_SUCCESS;

@@ -67,4 +67,6 @@ public interface UserService {
     List<User> getPid(Long id);
 
     int updateTgLink(String tgLink,long id);
+
+
 }

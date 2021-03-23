@@ -144,6 +144,32 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
         });
     });
 
+    /* 提交表单数据 */
+    $(document).on("click", ".ajax-register", function (e) {
+        e.preventDefault();
+        var form = $(this).parents("form");
+        var url = form.attr("action");
+        var serializeArray = form.serializeArray();
+        $.post(url, serializeArray, function (result) {
+            if (result.code === 200) {
+                layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
+                setTimeout(function () {
+                    if (result.data === 'submit[refresh]') {
+                        parent.location.reload();
+                        return;
+                    }
+                    if (result.data != null && result.data.url != null) {
+                        window.location.href = result.data.url;
+                    } else {
+                       // window.location.reload();
+                    }
+                }, 2000);
+            } else {
+                layer.msg(result.msg, {offset: '15px', time: 3000, icon: 2});
+            }
+        });
+    });
+
     /* get方式异步 */
     $(document).on("click", ".ajax-get", function (e) {
         e.preventDefault();

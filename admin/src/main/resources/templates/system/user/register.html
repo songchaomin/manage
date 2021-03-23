@@ -12,6 +12,7 @@
         width: 80px;
         height:80px;
         border:0;
+        padding-right: 2px;
     }
     body{background-image: url("/images/bg.jpg")}
 </style>
@@ -33,9 +34,9 @@
                     <input type="hidden" name="pid" th:value="${user}"/>
                     <input type="hidden" name="dept" th:value="0"/>
                     <div class="layui-form-item">
-                        <label class="layui-form-label required">用户名</label>
+                        <label class="layui-form-label required">会员编号</label>
                         <div class="layui-input-inline">
-                            <input class="layui-input" type="text" name="username" placeholder="请输入用户昵称" >
+                            <input class="layui-input" type="text" name="username" placeholder="请输入用户昵称" th:value="${memberNo}" readonly="readonly" >
                         </div>
                     </div>
                     <div class="layui-form-item" >
@@ -63,14 +64,14 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">选择性别</label>
+                        <label class="layui-form-label" required>选择性别</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="sex" value="1" title="男" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>男</div></div>
                             <input type="radio" name="sex" value="2" title="女" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>女</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" for="birthday">出生日期</label>
+                        <label class="layui-form-label" for="birthday" required>出生日期</label>
                         <div class="layui-input-inline">
                             <input type="text" class="layui-input" id="birthday" name="birthday">
                         </div>
@@ -87,39 +88,38 @@
                     <!--资质信息-->
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="idCardPic">上传身份证</button>
-                        <div class="layui-upload-list" >
-                            <img class="layui-upload-img" id="idCardUploadImg" >
-                            <input type="hidden" name="idCardPic"  id="idCardUploadText" />
-                        </div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="idCardPicImg"></div>
+                        </blockquote>
+                        <input type="hidden" name="idCardPic"  id="idCardUploadText" />
                     </div>
-
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="bankCardPic">上传银行卡</button>
-                        <div class="layui-upload-list">
-                            <img class="layui-upload-img" id="bankCardPicImg">
-                            <input type="hidden" name="bankCardPic"  id="bankCardPicText" />
-                        </div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="bankCardPicImg"></div>
+                        </blockquote>
+                        <input type="hidden" name="bankCardPic"  id="bankCardPicText" />
                     </div>
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="payPic">上传支付宝</button>
-                        <div class="layui-upload-list">
-                            <img class="layui-upload-img" id="payPicImg">
-                            <input type="hidden" name="payPic"  id="payPicText" />
-                        </div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="payPicImg"></div>
+                        </blockquote>
+                        <input type="hidden" name="payPic"  id="payPicText" />
                     </div>
                     <div class="layui-upload">
-                    <button type="button" class="layui-btn" id="taobaoPic">上传淘宝号</button>
-                    <div class="layui-upload-list">
-                        <img class="layui-upload-img" id="taobaoPicImg">
+                        <button type="button" class="layui-btn" id="taobaoPic">上传淘宝号</button>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="taobaoPicImg"></div>
+                        </blockquote>
                         <input type="hidden" name="taobaoPic"  id="taobaoPicText" />
-                    </div>
                     </div>
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="shppingXyPic">上传买家信誉</button>
-                        <div class="layui-upload-list">
-                            <img class="layui-upload-img" id="shppingXyPicImg">
-                            <input type="hidden" name="shppingXyPic"  id="shppingXyPicText" />
-                        </div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="shppingXyPicImg"></div>
+                        </blockquote>
+                        <input type="hidden" name="shppingXyPic"  id="shppingXyPicText" />
                     </div>
                     <!--资质信息结束-->
                 </div>
@@ -127,42 +127,42 @@
                     <!--其它信息-->
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">QQ</label>
+                        <label class="layui-form-label" required>QQ</label>
                         <div class="layui-input-inline">
                             <input class="layui-input" type="text" name="qq" placeholder="请输入QQ" >
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">旺旺ID</label>
+                        <label class="layui-form-label" required>旺旺ID</label>
                         <div class="layui-input-inline">
                             <input class="layui-input" type="text" name="wangwangId"  >
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">店铺信息（是否开店）</label>
+                        <label class="layui-form-label" required>店铺信息（是否开店）</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="shopInfo" value="1" title="是" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
                             <input type="radio" name="shopInfo" value="2" title="否" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>否</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">婚姻状态（婚否）</label>
+                        <label class="layui-form-label" required>婚姻状态（婚否）</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="marryInfo" value="1" title="是" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
                             <input type="radio" name="marryInfo" value="2" title="否" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>否</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">子女年龄</label>
+                        <label class="layui-form-label" required>子女年龄</label>
                         <div class="layui-input-inline">
                             <select name="childAgeRange" mo:dict="AGE_RANGE"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">月收入</label>
+                        <label class="layui-form-label" required>月收入</label>
                         <div class="layui-input-inline">
                             <select name="chargeRange" mo:dict="Charge_Range"
                                     mo-selected="${param.status}"></select>
@@ -170,47 +170,49 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">身高</label>
+                        <label class="layui-form-label" required>身高</label>
                         <div class="layui-input-inline">
                             <select name="heightRange" mo:dict="Height_Range"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">体重</label>
+                        <label class="layui-form-label" required>体重</label>
                         <div class="layui-input-inline">
                             <select name="weightRange" mo:dict="Weight_Range"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">学历</label>
+                        <label class="layui-form-label" required>学历</label>
                         <div class="layui-input-inline">
-                            <input class="layui-input" type="text" name="xl"  >
+                            <select name="xl" mo:dict="xl_range"
+                                    mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">手机品牌</label>
+                        <label class="layui-form-label" required>手机品牌</label>
                         <div class="layui-input-inline">
-                            <input class="layui-input" type="text" name="phoneBrand"  >
+                            <select name="phoneBrand" mo:dict="brand_range"
+                                    mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">星座</label>
+                        <label class="layui-form-label" required>星座</label>
                         <div class="layui-input-inline">
                             <select name="constellation" mo:dict="Constellation"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">是否有车</label>
+                        <label class="layui-form-label" required>是否有车</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="carInfo" value="1" title="是" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
                             <input type="radio" name="carInfo" value="2" title="否" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>否</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">常用收货地址</label>
+                        <label class="layui-form-label" required>常用收货地址</label>
                         <div class="layui-input-inline">
                             <input class="layui-input" type="text" name="receveAddress"  >
                         </div>
@@ -220,7 +222,7 @@
             </div>
         </div>
         <div class="layui-form-item" >
-            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i>用户注册</button>
+            <button class="layui-btn ajax-register"><i class="fa fa-check-circle"></i>用户注册</button>
         </div>
     </form>
 </div>
@@ -247,18 +249,25 @@
             ,field: 'picture'
             ,exts: 'jpg|png|gif|jpeg'
             ,url: '/upload/picture' //改成您自己的上传接口
+            ,multiple: true
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#idCardUploadImg').attr('src', result); //图片链接（base64）
-                    $("#idCardUploadImg").addClass("upload-img");
+                    $('#idCardPicImg').append('<img src="'+ result +'" alt="'+ file.name +'" class="upload-img">')
                 });
             }
             ,done: function(res){
                 //如果上传失败
                 if(res.code == 200){
                    var path=res.data.path;
-                   $("#idCardUploadText").val(path);
+                   var oldPath=$("#idCardUploadText").val();
+                   var newPath="";
+                   if(oldPath!=''){
+                       newPath=oldPath +","+path
+                   }else{
+                       newPath=path;
+                   }
+                   $("#idCardUploadText").val(newPath);
                     return layer.msg('上传成功!');
                 }else{
                     return layer.msg(res.msg);
@@ -271,20 +280,27 @@
         var bankCardPic = upload.render({
             elem: '#bankCardPic'
             ,field: 'picture'
+            ,multiple: true
             ,exts: 'jpg|png|gif|jpeg'
             ,url: '/upload/picture' //改成您自己的上传接口
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#bankCardPicImg').attr('src', result); //图片链接（base64）
-                    $("#bankCardPicImg").addClass("upload-img");
+                    $('#bankCardPicImg').append('<img src="'+ result +'" alt="'+ file.name +'" class="upload-img">')
                 });
             }
             ,done: function(res){
                 //如果上传失败
                 if(res.code == 200){
                     var path=res.data.path;
-                    $("#bankCardPicText").val(path);
+                    var oldPath=$("#bankCardPicText").val();
+                    var newPath="";
+                    if(oldPath!=''){
+                        newPath=oldPath +","+path
+                    }else{
+                        newPath=path;
+                    }
+                    $("#bankCardPicText").val(newPath);
                     return layer.msg('上传成功!');
                 }else{
                     return layer.msg(res.msg);
@@ -300,20 +316,27 @@
         var payPic = upload.render({
             elem: '#payPic'
             ,field: 'picture'
+            ,multiple: true
             ,exts: 'jpg|png|gif|jpeg'
             ,url: '/upload/picture' //改成您自己的上传接口
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#payPicImg').attr('src', result); //图片链接（base64）
-                    $("#payPicImg").addClass("upload-img");
+                    $('#payPicImg').append('<img src="'+ result +'" alt="'+ file.name +'" class="upload-img">')
                 });
             }
             ,done: function(res){
                 //如果上传失败
                 if(res.code == 200){
                     var path=res.data.path;
-                    $("#payPicText").val(path);
+                    var oldPath=$("#payPicText").val();
+                    var newPath="";
+                    if(oldPath!=''){
+                        newPath=oldPath +","+path
+                    }else{
+                        newPath=path;
+                    }
+                    $("#payPicText").val(newPath);
                     return layer.msg('上传成功!');
                 }else{
                     return layer.msg(res.msg);
@@ -326,20 +349,27 @@
         var taobaoPic = upload.render({
             elem: '#taobaoPic'
             ,field: 'picture'
+            ,multiple: true
             ,exts: 'jpg|png|gif|jpeg'
             ,url: '/upload/picture' //改成您自己的上传接口
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#taobaoPicImg').attr('src', result); //图片链接（base64）
-                    $("#taobaoPicImg").addClass("upload-img");
+                    $('#taobaoPicImg').append('<img src="'+ result +'" alt="'+ file.name +'" class="upload-img">')
                 });
             }
             ,done: function(res){
                 //如果上传失败
                 if(res.code == 200){
                     var path=res.data.path;
-                    $("#taobaoPicText").val(path);
+                    var oldPath=$("#taobaoPicText").val();
+                    var newPath="";
+                    if(oldPath!=''){
+                        newPath=oldPath +","+path
+                    }else{
+                        newPath=path;
+                    }
+                    $("#taobaoPicText").val(newPath);
                     return layer.msg('上传成功!');
                 }else{
                     return layer.msg(res.msg);
@@ -352,20 +382,27 @@
         var shppingXyPic = upload.render({
             elem: '#shppingXyPic'
             ,field: 'picture'
+            ,multiple: true
             ,exts: 'jpg|png|gif|jpeg'
             ,url: '/upload/picture' //改成您自己的上传接口
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#shppingXyPicImg').attr('src', result); //图片链接（base64）
-                    $("#shppingXyPicImg").addClass("upload-img");
+                    $('#shppingXyPicImg').append('<img src="'+ result +'" alt="'+ file.name +'" class="upload-img">')
                 });
             }
             ,done: function(res){
                 //如果上传失败
                 if(res.code == 200){
                     var path=res.data.path;
-                    $("#shppingXyPicText").val(path);
+                    var oldPath=$("#shppingXyPicText").val();
+                    var newPath="";
+                    if(oldPath!=''){
+                        newPath=oldPath +","+path
+                    }else{
+                        newPath=path;
+                    }
+                    $("#shppingXyPicText").val(newPath);
                     return layer.msg('上传成功!');
                 }else{
                     return layer.msg(res.msg);
@@ -374,11 +411,6 @@
             ,error: function(){
             }
         });
-
-
-
-
-
 
 
     });

@@ -65,7 +65,8 @@ public class User implements Serializable {
     private Byte status;
 
     private Long qq;
-    private Date birthday;
+
+    private String birthday;
     private Long age;// '年龄'
     @Column(name="id_card_pic")
     private String idCardPic; // '身份证号码图片',

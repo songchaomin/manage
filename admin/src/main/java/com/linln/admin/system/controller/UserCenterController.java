@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 小懒虫
@@ -52,8 +53,12 @@ public class UserCenterController {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        Role roles = roleService.getById(2L);
-        userCenter.setRoleName(roles.getTitle());
+        if(Objects.equals(user.getUsername(),"admin")){
+            userCenter.setRoleName("管理员");
+        }else{
+            Role roles = roleService.getById(2L);
+            userCenter.setRoleName(roles.getTitle());
+        }
         List<User> users = userService.getPid(user.getId());
         userCenter.setTgNum(users.size());
         model.addAttribute("user", userCenter);

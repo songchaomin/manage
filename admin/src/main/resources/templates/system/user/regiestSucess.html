@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:mo="https://gitee.com/aun/Timo">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+    <link rel="stylesheet" th:href="@{/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css}" type="text/css">
+</head>
+<style>
+    .layui-form .layui-form-item .layui-form-label{
+        width:140px;
+    }
+</style>
+<body>
+<div style="margin: 200px auto;width: 300px;height: 200px;border: #8D8D8D solid 1px;text-align: center">
+  恭喜注册成功，还需要管理员审核通过后才可以正常登陆系统！
+</div>
+
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/zTree_v3/js/jquery.ztree.core.min.js}"></script>
+
+
+</body>
+</html>

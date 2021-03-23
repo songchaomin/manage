@@ -155,4 +155,5 @@ public class UserServiceImpl implements UserService {
     public int updateTgLink(String tgLink, long id) {
         return userRepository.updateTglink(tgLink,id);
     }
+
 }

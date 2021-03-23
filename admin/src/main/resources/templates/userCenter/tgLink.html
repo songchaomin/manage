@@ -9,7 +9,7 @@
         <input type="text" id="tgLinkText"  class="layui-input" th:value="${user.tgLink}">
     </div>
     <button type="button" class="layui-btn"  data-clipboard-action="copy" data-clipboard-target="#tgLinkText">复制链接</button>
-    <button th:if="${user.username}=='admin' and ${user.tgLink}==''" class="layui-btn"  id="genTgLink">生成推广码</button>
+    <button th:if=" ${user.tgLink}==''" class="layui-btn"  id="genTgLink">生成推广码</button>
 </div>
 
 <script th:replace="/common/template :: script"></script>
