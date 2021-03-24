@@ -178,8 +178,9 @@ public class UserController {
         tgLinkLogService.insertTgLinkLog(tgLinkLog);
         //失效旧的链接码
         tgLinkLogService.updateTgLinkLogEffective((byte)1,user.getUuid());
-        resultVo.setMsg("注册成功！");
-        resultVo.setData(user);
+        resultVo.setMsg("注册成功！3秒后进入登陆界面");
+        String loginUrl= request.getScheme()+"://"+request.getServerName()+"/login";
+        resultVo.setData(loginUrl);
         resultVo.setCode(200);
         return resultVo;
     }
