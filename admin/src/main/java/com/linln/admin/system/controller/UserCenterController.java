@@ -3,8 +3,10 @@ package com.linln.admin.system.controller;
 import com.linln.admin.system.domain.UserCenter;
 import com.linln.component.shiro.ShiroUtil;
 import com.linln.modules.system.domain.Role;
+import com.linln.modules.system.domain.TgLinkLog;
 import com.linln.modules.system.domain.User;
 import com.linln.modules.system.service.RoleService;
+import com.linln.modules.system.service.TgLinkLogService;
 import com.linln.modules.system.service.UserService;
 import com.linln.modules.task.domain.OwnTask;
 import com.linln.modules.task.service.OwnTaskService;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author 小懒虫
@@ -37,6 +40,10 @@ public class UserCenterController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private TgLinkLogService tgLinkLogService;
+
 
     /**
      * 个人信息
@@ -79,10 +86,17 @@ public class UserCenterController {
     /**
      * 推广链接页面
      */
-    @GetMapping("/generateTgLink/{id}")
+    @GetMapping("/generateTgLink")
     @ResponseBody
-    public String generateTgLink(@PathVariable("id") long id, Model model, HttpServletRequest request) {
-        String tglink= request.getScheme()+"://"+request.getServerName()+":"+request.getLocalPort()+"/system/user/register/"+id;
+    public String generateTgLink( Model model, HttpServletRequest request) {
+        User user = ShiroUtil.getSubject();
+        Long id = user.getId();
+        String uuid= UUID.randomUUID().toString();
+        String tglink= request.getScheme()+"://"+request.getServerName()+":"+request.getLocalPort()+"/system/user/register/"+id+"/"+uuid;
+        TgLinkLog tgLinkLog=new TgLinkLog();
+        tgLinkLog.setTgLink(uuid);
+        tgLinkLog.setEffective((byte)0);
+        tgLinkLogService.insertTgLinkLog(tgLinkLog);
         userService.updateTgLink(tglink,id);
         return tglink;
     }

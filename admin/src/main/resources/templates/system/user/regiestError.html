@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:mo="https://gitee.com/aun/Timo">
-<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
-    <link rel="stylesheet" th:href="@{/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css}" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="C端后台管理系统" />
+    <meta name="keywords" content="C端, C端后台管理系统, SpringBoot, Jpa, Thymeleaf, Shiro" />
+
+    <link rel="shortcut icon" th:href="@{/mo-favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/plugins/font-awesome-4.7.0/css/font-awesome.min.css}"  media="all">
+    <link rel="stylesheet" th:href="@{/lib/layui-v2.3.0/css/layui.css}"  media="all">
+    <link rel="stylesheet" th:href="@{/css/main.css}"  media="all">
+    <title>会员管理和会员注册</title>
 </head>
 <style>
     .layui-form .layui-form-item .layui-form-label{

@@ -43,9 +43,9 @@ public interface UserRepository extends BaseRepository<User, Long>, JpaSpecifica
      * @param ids ID列表
      * @return 影响行数
      */
-    public Integer deleteByIdIn(List<Long> ids);
+     Integer deleteByIdIn(List<Long> ids);
 
-    @Query("select u from User u where u.pid =:id")
+    @Query(value = "select * from sys_user u where u.pid =:id",nativeQuery = true)
     List<User> getUserByPid(@Param("id") Long id);
 
     @Transactional

@@ -75,6 +75,7 @@ public class User implements Serializable {
     private String wangwangId;//  '旺旺ID',
     private String taobaoPic; //  '我的淘宝页面截图',
     private String receveAddress; //  '常用收货地址',
+    private String receveAddressPic; //  '常用收货地址图片',
     private Byte shopInfo; // '店铺信息1：是2：否',
     private String shppingXyPic; //   '买家信誉（买家信誉截图）',
     private Byte marryInfo; // '婚姻状态1：是2：否',
@@ -88,6 +89,7 @@ public class User implements Serializable {
     private String tgLink ;//推广链接
     private Long pid ;//上家ID
     private Long jf;//积分
+    private String uuid;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_id")
     @JsonIgnore

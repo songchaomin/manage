@@ -10,7 +10,7 @@
             <span class="edit-avatar" th:attr="data-url=@{/userPicture}">修改头像</span>
         </div>
         <ul class="detail-info">
-            <li>账号：<span th:text="${user.username}" th:title="${user.username}"></span></li>
+            <li>会员编号：<span th:text="${user.username}" th:title="${user.username}"></span></li>
             <li>用户名称：<span th:text="${user.nickname}" th:title="${user.nickname}"></span></li>
             <li>性别：<span th:text="${#dicts.keyValue('USER_SEX', user.sex)}"
                          th:title="${#dicts.keyValue('USER_SEX', user.sex)}"></span></li>

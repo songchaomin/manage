@@ -22,10 +22,12 @@ import com.linln.component.fileUpload.config.properties.UploadProjectProperties;
 import com.linln.component.shiro.ShiroUtil;
 import com.linln.modules.system.domain.Dept;
 import com.linln.modules.system.domain.Role;
+import com.linln.modules.system.domain.TgLinkLog;
 import com.linln.modules.system.domain.User;
 import com.linln.modules.system.repository.UserRepository;
 import com.linln.modules.system.service.RoleService;
 import com.linln.modules.system.service.SysCountService;
+import com.linln.modules.system.service.TgLinkLogService;
 import com.linln.modules.system.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +48,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 小懒虫
@@ -66,6 +66,9 @@ public class UserController {
 
     @Autowired
     private SysCountService sysCountService;
+
+    @Autowired
+    private TgLinkLogService tgLinkLogService;
     /**
      * 列表页面
      */
@@ -93,18 +96,25 @@ public class UserController {
     }
 
 
-    @GetMapping("/register/{pid}")
-    public String registerLogin(@PathVariable("pid") Long pid ,Model model) {
+    @GetMapping("/register/{pid}/{uuid}")
+    public String registerLogin(@PathVariable("pid") Long pid ,@PathVariable("uuid")String uuid, Model model) {
         //判断PID是否存在，不存在不允许注册
         User user = userService.getById(pid);
-        //获取会员编码
-        int sysCount = sysCountService.getSysCount();
         if(user ==null){
             model.addAttribute("msg", "系统中不存在推广的用户编码！");
             return "/system/user/regiestError";
         }
+        //判断推广码是否有效
+        TgLinkLog tgLinkLog = tgLinkLogService.getTgLinkLog(uuid);
+        if(tgLinkLog.getEffective()==1){
+            model.addAttribute("msg", "推广码已经失效,请联系推广人,重新获取推广码！");
+            return "/system/user/regiestError";
+        }
+        //获取会员编码
+        int sysCount = sysCountService.getSysCount();
         model.addAttribute("user", pid);
         model.addAttribute("memberNo", sysCount);
+        model.addAttribute("uuid", uuid);
         return "/system/user/register";
     }
 
@@ -157,9 +167,17 @@ public class UserController {
         user.setStatus((byte)2);
         // 保存数据
         userService.save(user);
-        String requestURL = request.getRequestURL()+"/"+user.getId();
+        String uuid= UUID.randomUUID().toString();
+        String requestURL = request.getRequestURL()+"/"+user.getId()+"/"+uuid;
         //更新推广链接
         userService.updateTgLink(requestURL,user.getId());
+        //新增链接日志
+        TgLinkLog tgLinkLog=new TgLinkLog();
+        tgLinkLog.setTgLink(uuid);
+        tgLinkLog.setEffective((byte)0);
+        tgLinkLogService.insertTgLinkLog(tgLinkLog);
+        //失效旧的链接码
+        tgLinkLogService.updateTgLinkLogEffective((byte)1,user.getUuid());
         resultVo.setMsg("注册成功！");
         resultVo.setData(user);
         resultVo.setCode(200);

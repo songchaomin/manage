@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:mo="https://gitee.com/aun/Timo">
-<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
-    <link rel="stylesheet" th:href="@{/lib/zTree_v3/css/zTreeStyle/zTreeStyle.css}" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="C端后台管理系统" />
+    <meta name="keywords" content="C端, C端后台管理系统, SpringBoot, Jpa, Thymeleaf, Shiro" />
+
+    <link rel="shortcut icon" th:href="@{/mo-favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/plugins/font-awesome-4.7.0/css/font-awesome.min.css}"  media="all">
+    <link rel="stylesheet" th:href="@{/lib/layui-v2.3.0/css/layui.css}"  media="all">
+    <link rel="stylesheet" th:href="@{/css/main.css}"  media="all">
+    <title>会员管理和会员注册</title>
 </head>
 <style>
     .layui-form .layui-form-item .layui-form-label{
@@ -33,6 +44,7 @@
                     <!--基本信息-->
                     <input type="hidden" name="pid" th:value="${user}"/>
                     <input type="hidden" name="dept" th:value="0"/>
+                    <input type="hidden" name="uuid" th:value="${uuid}"/>
                     <div class="layui-form-item">
                         <label class="layui-form-label required">会员编号</label>
                         <div class="layui-input-inline">
@@ -58,20 +70,20 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label required">用户名称</label>
+                        <label class="layui-form-label required">用户姓名</label>
                         <div class="layui-input-inline">
                             <input class="layui-input" type="text" name="nickname" placeholder="请输入用户昵称">
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>选择性别</label>
+                        <label class="layui-form-label required" >选择性别</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="sex" value="1" title="男" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>男</div></div>
                             <input type="radio" name="sex" value="2" title="女" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>女</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" for="birthday" required>出生日期</label>
+                        <label class="layui-form-label required"  for="birthday" >出生日期</label>
                         <div class="layui-input-inline">
                             <input type="text" class="layui-input" id="birthday" name="birthday">
                         </div>
@@ -88,35 +100,35 @@
                     <!--资质信息-->
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="idCardPic">上传身份证</button>
-                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                        <blockquote  style="margin-top: 5px;">
                             <div class="layui-upload-list" id="idCardPicImg"></div>
                         </blockquote>
                         <input type="hidden" name="idCardPic"  id="idCardUploadText" />
                     </div>
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="bankCardPic">上传银行卡</button>
-                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                        <blockquote  style="margin-top: 5px;">
                             <div class="layui-upload-list" id="bankCardPicImg"></div>
                         </blockquote>
                         <input type="hidden" name="bankCardPic"  id="bankCardPicText" />
                     </div>
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="payPic">上传支付宝</button>
-                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                        <blockquote  style="margin-top: 5px;">
                             <div class="layui-upload-list" id="payPicImg"></div>
                         </blockquote>
                         <input type="hidden" name="payPic"  id="payPicText" />
                     </div>
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="taobaoPic">上传淘宝号</button>
-                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                        <blockquote style="margin-top: 5px;">
                             <div class="layui-upload-list" id="taobaoPicImg"></div>
                         </blockquote>
                         <input type="hidden" name="taobaoPic"  id="taobaoPicText" />
                     </div>
                     <div class="layui-upload">
                         <button type="button" class="layui-btn" id="shppingXyPic">上传买家信誉</button>
-                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 5px;">
+                        <blockquote  style="margin-top: 5px;">
                             <div class="layui-upload-list" id="shppingXyPicImg"></div>
                         </blockquote>
                         <input type="hidden" name="shppingXyPic"  id="shppingXyPicText" />
@@ -127,42 +139,42 @@
                     <!--其它信息-->
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>QQ</label>
+                        <label class="layui-form-label required" >QQ</label>
                         <div class="layui-input-inline">
                             <input class="layui-input" type="text" name="qq" placeholder="请输入QQ" >
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>旺旺ID</label>
+                        <label class="layui-form-label required" >旺旺ID</label>
                         <div class="layui-input-inline">
                             <input class="layui-input" type="text" name="wangwangId"  >
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>店铺信息（是否开店）</label>
+                        <label class="layui-form-label required" >店铺信息（是否开店）</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="shopInfo" value="1" title="是" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
                             <input type="radio" name="shopInfo" value="2" title="否" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>否</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>婚姻状态（婚否）</label>
+                        <label class="layui-form-label required" >婚姻状态（婚否）</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="marryInfo" value="1" title="是" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
                             <input type="radio" name="marryInfo" value="2" title="否" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>否</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>子女年龄</label>
+                        <label class="layui-form-label required" >子女年龄</label>
                         <div class="layui-input-inline">
                             <select name="childAgeRange" mo:dict="AGE_RANGE"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>月收入</label>
+                        <label class="layui-form-label required" >月收入</label>
                         <div class="layui-input-inline">
                             <select name="chargeRange" mo:dict="Charge_Range"
                                     mo-selected="${param.status}"></select>
@@ -170,52 +182,57 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>身高</label>
+                        <label class="layui-form-label required" >身高</label>
                         <div class="layui-input-inline">
                             <select name="heightRange" mo:dict="Height_Range"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>体重</label>
+                        <label class="layui-form-label required" >体重</label>
                         <div class="layui-input-inline">
                             <select name="weightRange" mo:dict="Weight_Range"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>学历</label>
+                        <label class="layui-form-label required" >学历</label>
                         <div class="layui-input-inline">
                             <select name="xl" mo:dict="xl_range"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>手机品牌</label>
+                        <label class="layui-form-label required" >手机品牌</label>
                         <div class="layui-input-inline">
                             <select name="phoneBrand" mo:dict="brand_range"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>星座</label>
+                        <label class="layui-form-label required" >星座</label>
                         <div class="layui-input-inline">
                             <select name="constellation" mo:dict="Constellation"
                                     mo-selected="${param.status}"></select>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>是否有车</label>
+                        <label class="layui-form-label required" >是否有车</label>
                         <div class="layui-input-inline">
                             <input type="radio" name="carInfo" value="1" title="是" checked><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>是</div></div>
                             <input type="radio" name="carInfo" value="2" title="否" ><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>否</div></div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" required>常用收货地址</label>
+                        <label class="layui-form-label required" >常用收货地址</label>
                         <div class="layui-input-inline">
                             <input class="layui-input" type="text" name="receveAddress"  >
                         </div>
+                        <button type="button" class="layui-btn" id="receveAddressPic">上传收货地址</button>
+                        <blockquote  style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="receveAddressPICImg"></div>
+                        </blockquote>
+                        <input type="hidden" name="receveAddressPic"  id="receveAddressPICText" />
                     </div>
                     <!--其它信息结束-->
                 </div>
@@ -412,6 +429,39 @@
             }
         });
 
+        //收货地址上传
+        var receveAddressPic = upload.render({
+            elem: '#receveAddressPic'
+            ,field: 'picture'
+            ,exts: 'jpg|png|gif|jpeg'
+            ,url: '/upload/picture' //改成您自己的上传接口
+            ,multiple: true
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#receveAddressPICImg').append('<img src="'+ result +'" alt="'+ file.name +'" class="upload-img">')
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code == 200){
+                    var path=res.data.path;
+                    var oldPath=$("#receveAddressPICText").val();
+                    var newPath="";
+                    if(oldPath!=''){
+                        newPath=oldPath +","+path
+                    }else{
+                        newPath=path;
+                    }
+                    $("#receveAddressPICText").val(newPath);
+                    return layer.msg('上传成功!');
+                }else{
+                    return layer.msg(res.msg);
+                }
+            }
+            ,error: function(){
+            }
+        });
 
     });
 </script>

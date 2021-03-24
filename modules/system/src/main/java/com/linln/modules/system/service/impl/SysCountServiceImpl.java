@@ -4,7 +4,6 @@ import com.linln.modules.system.repository.SysCountRepository;
 import com.linln.modules.system.service.SysCountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SysCountServiceImpl implements SysCountService {
