@@ -75,4 +75,6 @@ public interface RoleService {
      */
     @Transactional
     Boolean updateStatus(StatusEnum statusEnum, List<Long> idList);
+
+    Role getRoleByUserId(Long id);
 }

@@ -57,6 +57,7 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.findById(id).orElse(null);
     }
 
+
     /**
      * 获取分页列表数据
      * @param example 查询实例
@@ -110,5 +111,10 @@ public class RoleServiceImpl implements RoleService {
             roleRepository.cancelMenuJoin(ids);
         }
         return roleRepository.updateStatus(statusEnum.getCode(), ids) > 0;
+    }
+
+    @Override
+    public Role getRoleByUserId(Long id) {
+        return roleRepository.getRoleByUserId(id);
     }
 }

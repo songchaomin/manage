@@ -154,6 +154,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
             if (result.code === 200) {
                 layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
                 setTimeout(function () {
+                    debugger;
                     if (result.data === 'submit[refresh]') {
                         parent.location.reload();
                         return;
@@ -161,7 +162,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
                     if (result.data != null && result.data.url != null) {
                         window.location.href = result.data.url;
                     } else {
-                       // window.location.reload();
+                      window.close();
                     }
                 }, 2000);
             } else {

@@ -63,7 +63,7 @@ public class UserCenterController {
         if(Objects.equals(user.getUsername(),"admin")){
             userCenter.setRoleName("管理员");
         }else{
-            Role roles = roleService.getById(2L);
+            Role roles = roleService.getRoleByUserId(user.getId());
             userCenter.setRoleName(roles.getTitle());
         }
         List<User> users = userService.getPid(user.getId());
@@ -92,7 +92,7 @@ public class UserCenterController {
         User user = ShiroUtil.getSubject();
         Long id = user.getId();
         String uuid= UUID.randomUUID().toString();
-        String tglink= request.getScheme()+"://"+request.getServerName()+":"+request.getLocalPort()+"/system/user/register/"+id+"/"+uuid;
+        String tglink= request.getScheme()+"://"+request.getServerName()+"/system/user/register/"+id+"/"+uuid;
         TgLinkLog tgLinkLog=new TgLinkLog();
         tgLinkLog.setTgLink(uuid);
         tgLinkLog.setEffective((byte)0);
