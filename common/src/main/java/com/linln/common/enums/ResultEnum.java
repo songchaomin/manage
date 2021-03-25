@@ -26,6 +26,7 @@ public enum ResultEnum implements ResultInterface {
     USER_OLD_PWD_ERROR(404, "原来密码不正确"),
     USER_NAME_PWD_NULL(405, "用户名和密码不能为空"),
     USER_CAPTCHA_ERROR(406, "验证码错误"),
+    USER_wangwang_ERROR(407, "旺旺ID已经注册过，请重新输入！"),
 
     /**
      * 角色问题

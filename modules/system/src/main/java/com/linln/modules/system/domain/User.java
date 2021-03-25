@@ -85,6 +85,7 @@ public class User implements Serializable {
     private String weightRange; // '体重区间',
     private String xl; //'学历',
     private String phoneBrand; // '手机品牌',
+    private String constellation; // '星座',
     private Byte carInfo; // '是否有车1：是2：否',
     private String tgLink ;//推广链接
     private Long pid ;//上家ID

@@ -1,7 +1,6 @@
 package com.linln.admin.system.controller;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import com.linln.admin.system.validator.UserRegisterValid;
 import com.linln.admin.system.validator.UserValid;
 import com.linln.common.constant.AdminConst;
@@ -37,7 +36,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -143,9 +141,9 @@ public class UserController {
             user.setPassword(encrypt);
             user.setSalt(salt);
         }
-        // 判断用户名是否重复
-        if (userService.repeatByUsername(user)) {
-            throw new ResultException(ResultEnum.USER_EXIST);
+        // 判断wangwangId是否重复
+        if (userService.repeatBywangwangId(user)) {
+            throw new ResultException(ResultEnum.USER_wangwang_ERROR);
         }
         // 复制保留无需修改的数据
         if (user.getId() != null) {
@@ -257,7 +255,19 @@ public class UserController {
     @GetMapping("/detail/{id}")
     @RequiresPermissions("system:user:detail")
     public String toDetail(@PathVariable("id") User user, Model model) {
+        String [] idCardPics=user.getIdCardPic()==null ? new String[0] :user.getIdCardPic().split(",");
+        String [] bankCardPics=user.getBankCardPic()==null?new String[0]:user.getBankCardPic().split(",");
+        String [] receveAddressPics=user.getReceveAddressPic()==null?new String[0]:user.getReceveAddressPic().split(",");
+        String [] shppingXyPics=user.getShppingXyPic()==null?new String[0]:user.getShppingXyPic().split(",");
+        String [] taobaoPics=user.getTaobaoPic()==null?new String[0]:user.getTaobaoPic().split(",");
+        String [] payPics=user.getPayPic()==null?new String[0]:user.getPayPic().split(",");
         model.addAttribute("user", user);
+        model.addAttribute("idCardPics", idCardPics);
+        model.addAttribute("bankCardPics", bankCardPics);
+        model.addAttribute("receveAddressPics", receveAddressPics);
+        model.addAttribute("shppingXyPics", shppingXyPics);
+        model.addAttribute("taobaoPics", taobaoPics);
+        model.addAttribute("payPics", payPics);
         return "/system/user/detail";
     }
 

@@ -48,6 +48,8 @@ public interface UserService {
      */
     Boolean repeatByUsername(User user);
 
+
+    Boolean repeatBywangwangId(User user);
     /**
      * 根据用户ID查询用户数据
      * @param id 用户ID

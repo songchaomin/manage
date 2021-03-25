@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsernameAndIdNot(user.getUsername(), id) != null;
     }
 
+    @Override
+    public Boolean repeatBywangwangId(User user) {
+        return userRepository.findBywangwangId(user.getWangwangId())!=null;
+    }
+
     /**
      * 根据用户ID获取用户信息
      * @param id 用户ID

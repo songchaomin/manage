@@ -3,48 +3,301 @@
       xmlns:mo="https://gitee.com/aun/Timo">
 <head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
-<body>
-    <div class="timo-detail-page">
-        <div class="timo-detail-title">基本信息</div>
-        <table class="layui-table timo-detail-table">
-            <tbody>
-            <tr>
-                <th width='100px'>用户编号</th>
-                <td th:text="${user.id}"></td>
-                <th width='100px'>用户账号</th>
-                <td th:text="${user.username}"></td>
-            </tr>
-            <tr>
-                <th>用户昵称</th>
-                <td th:text="${user.nickname}"></td>
-                <th>用户性别</th>
-                <td th:text="${#dicts.keyValue('USER_SEX', user.sex)}"></td>
-            </tr>
-            <tr>
-                <th>所在部门</th>
-                <td colspan="4" th:text="${user.dept?.title}"></td>
-            </tr>
-            <tr>
-                <th>电话号码</th>
-                <td th:text="${user.phone}"></td>
-                <th>邮箱</th>
-                <td th:text="${user.email}"></td>
-            </tr>
-            <tr>
-                <th>创建时间</th>
-                <td th:text="${#dates.format(user.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                <th>最后修改</th>
-                <td th:text="${#dates.format(user.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-            </tr>
-            <tr>
-                <th>备注</th>
-                <td th:text="${user.remark}" colspan="4"></td>
-            </tr>
-            </tbody>
-        </table>
+<style>
+    .layui-form .layui-form-item .layui-form-label {
+        width: 140px;
+    }
 
-        <div th:replace="/common/fragment :: log(${user})"></div>
-    </div>
+    .upload-img {
+        width: 80px;
+        height: 80px;
+        border: 0;
+        padding-right: 2px;
+    }
+    #bigImg{
+        position: absolute;
+        left: 100px;
+        top:10px;
+    }
+</style>
+<body>
+<div class="layui-form timo-compile" style="margin: 0 auto;width: 600px;position: relative">
+    <form>
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">基本信息</li>
+                <li>资质信息</li>
+                <li>其它信息</li>
+            </ul>
+            <div class="layui-tab-content" style="background-color: white;">
+                <div class="layui-tab-item layui-show">
+                    <!--基本信息-->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">会员编号</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="username" th:value="${user.username}"
+                                   readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">电话号码</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="phone" th:value="${user.phone}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">用户姓名</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="nickname" th:value="${user.nickname}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">性别</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="sex" th:value="${user.sex}==1?'男':'女'">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label " for="birthday">出生日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="birthday" name="birthday"
+                                   th:value="${user.birthday}">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <!--资质信息-->
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="idCardPic">上传身份证</button>
+                        <blockquote style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="idcardPics">
+                                <img th:src="@{${s}}" th:each="s:${idCardPics}" class="upload-img">
+                            </div>
+                        </blockquote>
+                    </div>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="bankCardPic">上传银行卡</button>
+                        <blockquote style="margin-top: 5px;">
+                            <div class="layui-upload-list"  id="bankCardPics">
+                                <img th:src="@{${s}}" th:each="s:${bankCardPics}" class="upload-img">
+                            </div>
+                        </blockquote>
+
+                    </div>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="payPic">上传支付宝</button>
+                        <blockquote style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="payPics">
+                                <img th:src="@{${s}}" th:each="s:${payPics}" class="upload-img">
+                            </div>
+                        </blockquote>
+
+                    </div>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="taobaoPic">上传淘宝号</button>
+                        <blockquote style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="taobaoPics">
+                                <img th:src="@{${s}}" th:each="s:${taobaoPics}" class="upload-img">
+                            </div>
+                        </blockquote>
+
+                    </div>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="shppingXyPic">上传买家信誉</button>
+                        <blockquote style="margin-top: 5px;">
+                            <div class="layui-upload-list"  id="shppingXyPics">
+                                <img th:src="@{${s}}" th:each="s:${shppingXyPics}" class="upload-img">
+                            </div>
+                        </blockquote>
+                    </div>
+                    <!--资质信息结束-->
+                </div>
+                <div class="layui-tab-item">
+                    <!--其它信息-->
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">QQ</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="qq" th:value="${user.qq}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">旺旺ID</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="wangwangId" th:value="${user.wangwangId}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">店铺信息（是否开店）</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="shopInfo"
+                                   th:value="${user.shopInfo}==1?'是':'否'">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">婚姻状态（婚否）</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="marryInfo"
+                                   th:value="${user.marryInfo}==1?'是':'否'">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">子女年龄</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="marryInfo" th:value="${user.childAgeRange}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">月收入</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="marryInfo" th:value="${user.chargeRange}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">身高</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="marryInfo" th:value="${user.heightRange}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">体重</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="weightRange" th:value="${user.weightRange}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">学历</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="xl" th:value="${user.xl}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">手机品牌</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="phoneBrand" th:value="${user.phoneBrand}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">星座</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="constellation"
+                                   th:value="${user.constellation}">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">是否有车</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" name="carInfo" th:value="${user.carInfo}==1?'是':'否'">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">常用收货地址</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" type="text" name="receveAddress"
+                                   th:value="${user.receveAddress}">
+                        </div>
+                        <button type="button" class="layui-btn" id="receveAddressPic">上传收货地址</button>
+                        <blockquote style="margin-top: 5px;">
+                            <div class="layui-upload-list" id="receveAddressPics">
+                                <img th:src="@{${s}}" th:each="s:${receveAddressPics}" class="upload-img">
+                            </div>
+                        </blockquote>
+                        <input type="hidden" name="receveAddressPic" id="receveAddressPICText"/>
+                    </div>
+                    <!--其它信息结束-->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="bigImg">
+</div>
+</div>
 <script th:replace="/common/template :: script"></script>
+<script>
+    //身份证
+    var idCardPICS = document.getElementById("idcardPics");
+    var idCardImgs = idCardPICS.getElementsByTagName("img");
+    var bigImg = document.getElementById("bigImg");
+    for (var i = 0; i < idCardImgs.length; i++) {
+        idCardImgs[i].onclick = function () {
+                var src=this.src;
+                var imgEle = document.createElement("img");
+                imgEle.setAttribute("src",src);
+                bigImg.append(imgEle);
+        }
+    }
+
+    //银行卡
+    var bankCardPics = document.getElementById("bankCardPics");
+    var bankCardImgs = bankCardPics.getElementsByTagName("img");
+    for (var i = 0; i < bankCardImgs.length; i++) {
+        bankCardImgs[i].onclick = function () {
+            var src=this.src;
+            var imgEle = document.createElement("img");
+            imgEle.setAttribute("src",src);
+            bigImg.append(imgEle);
+        }
+    }
+
+    //支付宝
+    var payPics = document.getElementById("payPics");
+    var payImgs = payPics.getElementsByTagName("img");
+    for (var i = 0; i < payImgs.length; i++) {
+        payImgs[i].onclick = function () {
+            var src=this.src;
+            var imgEle = document.createElement("img");
+            imgEle.setAttribute("src",src);
+            bigImg.append(imgEle);
+        }
+    }
+
+    //淘宝
+    var taobaoPics = document.getElementById("taobaoPics");
+    var taobaoImgs = taobaoPics.getElementsByTagName("img");
+    for (var i = 0; i < taobaoImgs.length; i++) {
+        taobaoImgs[i].onclick = function () {
+            var src=this.src;
+            var imgEle = document.createElement("img");
+            imgEle.setAttribute("src",src);
+            bigImg.append(imgEle);
+        }
+    }
+
+    //买家信誉
+    var shppingXyPics = document.getElementById("shppingXyPics");
+    var shppingXyImgs = shppingXyPics.getElementsByTagName("img");
+    for (var i = 0; i < shppingXyImgs.length; i++) {
+        shppingXyImgs[i].onclick = function () {
+            var src=this.src;
+            var imgEle = document.createElement("img");
+            imgEle.setAttribute("src",src);
+            bigImg.append(imgEle);
+        }
+    }
+
+    //收货地址
+    var receveAddressPics = document.getElementById("receveAddressPics");
+    var receveAddressImgs = receveAddressPics.getElementsByTagName("img");
+    for (var i = 0; i < receveAddressImgs.length; i++) {
+        receveAddressImgs[i].onclick = function () {
+            var src=this.src;
+            var imgEle = document.createElement("img");
+            imgEle.setAttribute("src",src);
+            bigImg.append(imgEle);
+        }
+    }
+
+
+    bigImg.onclick=function(){
+        var childImgs = bigImg.getElementsByTagName("img");
+        for (var ii = 0; ii < childImgs.length; ii++){
+            bigImg.removeChild(childImgs[ii]);
+        }
+    }
+</script>
 </body>
 </html>
