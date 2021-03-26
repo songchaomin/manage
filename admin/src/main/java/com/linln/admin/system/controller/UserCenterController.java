@@ -68,7 +68,10 @@ public class UserCenterController {
         }
         List<User> users = userService.getPid(user.getId());
         userCenter.setTgNum(users.size());
+        //显示第一个培训师的姓名
+       String tranName= userService.getTranName(user);
         model.addAttribute("user", userCenter);
+        model.addAttribute("tranName", tranName);
         return "/userCenter/userInfo";
     }
 

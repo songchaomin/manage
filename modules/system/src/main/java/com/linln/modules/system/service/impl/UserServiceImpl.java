@@ -3,7 +3,9 @@ package com.linln.modules.system.service.impl;
 import com.linln.common.data.PageSort;
 import com.linln.common.enums.StatusEnum;
 import com.linln.modules.system.domain.Dept;
+import com.linln.modules.system.domain.Role;
 import com.linln.modules.system.domain.User;
+import com.linln.modules.system.repository.RoleRepository;
 import com.linln.modules.system.repository.UserRepository;
 import com.linln.modules.system.service.DeptService;
 import com.linln.modules.system.service.UserService;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 小懒虫
@@ -31,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private DeptService deptService;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     /**
      * 根据用户名查询用户数据
@@ -161,4 +167,27 @@ public class UserServiceImpl implements UserService {
         return userRepository.updateTglink(tgLink,id);
     }
 
+    @Override
+    public String getTranName(User user) {
+        return circleGetTranName(user);
+    }
+
+    private String circleGetTranName(User user) {
+        //判断当前的用户是否是培训师
+        Role role = roleRepository.getRoleByUserId(user.getId());
+        if (Objects.equals(role.getName(),"Tran")){
+            return user.getNickname();
+        }
+
+        if (user.getPid()!=null){
+            Role pidRole = roleRepository.getRoleByUserId(user.getPid());
+            User pUser = this.getById(user.getPid());
+            if (Objects.equals(pidRole.getName(),"Tran")){
+                return pUser.getNickname();
+            }else{
+                return circleGetTranName(pUser);
+            }
+        }
+        return "0";
+    }
 }

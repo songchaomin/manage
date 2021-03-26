@@ -15,6 +15,7 @@
             <li>性别：<span th:text="${#dicts.keyValue('USER_SEX', user.sex)}"
                          th:title="${#dicts.keyValue('USER_SEX', user.sex)}"></span></li>
             <li>电话：<span th:text="${user.phone}" th:title="${user.phone}"></span></li>
+            <li>培训师：<span th:text="${tranName}" th:title="${tranName}"></span></li>
             <li>推荐总数：<span th:text="${user.tgNum}" th:title="${user.tgNum}"></span></li>
             <li>身份信息：<span th:text="${user.roleName}" th:title="${user.roleName}"></span></li>
         </ul>

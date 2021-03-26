@@ -71,4 +71,5 @@ public interface UserService {
     int updateTgLink(String tgLink,long id);
 
 
+    String getTranName(User user);
 }

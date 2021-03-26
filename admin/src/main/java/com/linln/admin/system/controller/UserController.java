@@ -77,6 +77,11 @@ public class UserController {
         // 获取用户列表
         Page<User> list = userService.getPageList(user);
 
+        list.stream().forEach(t->{
+            String tranName = userService.getTranName(t);
+            t.setEmail(tranName);
+        });
+
         // 封装数据
         model.addAttribute("list", list.getContent());
         model.addAttribute("page", list);
