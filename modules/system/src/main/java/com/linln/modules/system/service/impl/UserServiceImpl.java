@@ -175,13 +175,16 @@ public class UserServiceImpl implements UserService {
     private String circleGetTranName(User user) {
         //判断当前的用户是否是培训师
         Role role = roleRepository.getRoleByUserId(user.getId());
-        if (Objects.equals(role.getName(),"Tran")){
+        if (!Objects.isNull(role) && Objects.equals(role.getName(),"Tran")){
             return user.getNickname();
         }
 
         if (user.getPid()!=null){
             Role pidRole = roleRepository.getRoleByUserId(user.getPid());
             User pUser = this.getById(user.getPid());
+            if (Objects.isNull(pidRole)){
+                return "0";
+            }
             if (Objects.equals(pidRole.getName(),"Tran")){
                 return pUser.getNickname();
             }else{

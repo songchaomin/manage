@@ -914,3 +914,8 @@ a{
 .upload-show .upload-item .upload-item-close:hover{
     background-color: #009688;
 }
+#wqq{
+    background: url("/images/wqq.jpg") no-repeat ;
+    width: 100px;
+    heigth:40px;
+}
