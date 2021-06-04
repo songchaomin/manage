@@ -16,14 +16,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">任务名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="taskName" th:value="${param.taskName}" placeholder="请输入任务名称"
+                        <input type="text" name="taskName" id="taskName" placeholder="请输入任务名称"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">任务标签</label>
                     <div class="layui-input-block">
-                        <input type="text" name="taskLable" th:value="${param.taskLable}" placeholder="请输入任务标签"
+                        <input type="text" name="taskLable" id ="taskLable" placeholder="请输入任务标签"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -34,46 +34,87 @@
                 </div>
             </div>
         </div>
-        <div class="timo-table-wrap">
-            <table class="layui-table timo-table">
-                <thead>
-                <tr>
-                    <th class="timo-table-checkbox">
-                        <label class="timo-checkbox"><input type="checkbox">
-                            <i class="layui-icon layui-icon-ok"></i></label>
-                    </th>
-                    <th class="sortable" data-field="taskName">任务名称</th>
-                    <th class="sortable" data-field="taskContent">任务内容</th>
-                    <th class="sortable" data-field="merchantName">商户名称</th>
-                    <th class="sortable" data-field="taskLable">任务标签</th>
-                    <th class="sortable" data-field="taskStatus">任务状态</th>
-                    <th class="sortable" data-field="createDate">创建时间</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item:${list}">
-                    <td><label class="timo-checkbox"><input type="checkbox" th:value="${item.id}">
-                        <i class="layui-icon layui-icon-ok"></i></label></td>
-                    <td th:text="${item.taskName}">任务名称</td>
-                    <td th:text="${item.taskContent}">任务内容</td>
-                    <td th:text="${item.merchantName}">商户名称</td>
-                    <td th:text="${item.taskLable}">任务标签</td>
-                    <td th:text="${item.taskStatus}">任务状态</td>
-                    <td th:text="${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm:ss')}">创建时间</td>
-                    <td>
-                        <a class="open-popup" data-title="详细信息" th:attr="data-url=@{'/userCenter/ownTask/detail/'+${item.id}}"
-                           shiro:hasPermission="userCenter:ownTask:detail"
-                           data-size="800,600" href="#">详细</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div th:replace="/common/fragment :: page"></div>
+
+        <table id="myTask" lay-filter="task"></table>
     </div>
 </div>
 <script th:replace="/common/template :: script"></script>
 <script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript"  th:inline="none">
+    layui.use(['jquery','upload','table'], function () {
+        var $ = layui.jquery;
+        var upload = layui.upload;
+        var table = layui.table;
+        var taskName=$("#taskName").val();
+        var taskLable=$("#taskLable").val();
+        //执行渲染
+        table.render({
+            elem: '#myTask'
+            ,url:"/userCenter/ownTask/taskList"
+            ,contentType:'application/json'
+            ,page:true
+            ,height: 415
+            ,method:'POST'
+            ,where:{taskName:taskName,taskLable:taskLable}
+            ,cols:[[
+                {checkbox: true}
+                ,{field: 'id',align:'center', title: 'id',width: 50}
+                ,{field: 'taskName',align:'center', title: '任务名称', width: 100}
+                ,{field: 'taskType',align:'center', title: '任务类型', width: 100}
+                ,{field: 'shopName',align:'center', title: '店铺名称', width: 150}
+                ,{field: 'babyKey',align:'center', title: '宝贝关键字', width: 100}
+                ,{field: 'babyKey',align:'center', title: '宝贝规格', width: 100}
+                ,{field: 'babyPrice',align:'center', title: '宝贝本金', width: 100}
+                ,{field: 'personNum',align:'center', title: '任务人数', width: 100}
+                ,{field: 'taskStatus',align:'center', title: '任务状态', width: 80}
+                ,{field: 'createDate',align:'center', title: '创建时间', width: 120}
+                ,{field: 'opt', title: '操作',align:'center', width: 160,toolbar: '#toolBar'}
+            ]]
+            ,id:'id'
+        });
+
+
+        //工具条事件
+        table.on('tool(task)', function(obj){
+            var data = obj.data;
+            var layEvent = obj.event;
+            var tr = obj.tr;
+            if(layEvent === 'detail'){ //查看
+                alert("查看")
+            } else if(layEvent === 'rob'){ //抢单
+                layer.confirm('确定要抢单吗？', function(index){
+                    //向服务端发送抢单指令
+                    layer.close(index);
+                    $.ajax({
+                        type: 'POST',
+                        url: "/userCenter/ownTask/rob",
+                        data:  JSON.stringify(data),
+                        success: function (result) {
+                                if(result.code==0){
+                                    layer.msg(result.msg, {icon: 5});
+                                }else{
+                                    layer.msg(result.msg, {icon: 1});
+                                }
+                        },
+                        dataType: 'json',
+                        contentType: 'application/json'
+                    });
+                });
+            }
+        });
+
+
+
+
+    });
+
+
+</script>
+
+<script type="text/html" id="toolBar">
+   <!-- <a class="layui-btn layui-btn-sm" lay-event="detail">详情</a>-->
+    <a class="layui-btn layui-btn-sm" lay-event="rob">抢单</a>
+</script>
 </body>
+
 </html>

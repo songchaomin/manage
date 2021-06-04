@@ -53,6 +53,6 @@ public interface UserRepository extends BaseRepository<User, Long>, JpaSpecifica
     @Query(value="update sys_user  set tg_link=:tgLink where id =:id",nativeQuery =true)
     int updateTglink(@Param("tgLink") String tgLink,@Param("id") long id);
 
-    @Query(value="select * from  sys_user   where wangwang_id =:wangwangId limit 1",nativeQuery =true)
+    @Query(value="select * from  sys_user   where wangwang_id =:wangwangId and status!=3  limit 1",nativeQuery =true)
     User findBywangwangId(@Param("wangwangId") String wangwangId);
 }

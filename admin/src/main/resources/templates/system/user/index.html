@@ -100,9 +100,9 @@
                     <td th:text="${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm:ss')}">创建时间</td>
                     <td th:text="${#dicts.dataStatus(item.status)}">状态</td>
                     <td>
-                        <a class="ajax-get" th:attr="data-msg='是否确定审核 '+${item.nickname}"
+                        <a class="ajax-get-audit" th:attr="data-msg='是否通过审核 '+${item.nickname}"
                            th:href="@{/system/user/status/ok(ids=${item.id})}"
-                           shiro:hasPermission="system:user:audit">审核</a>
+                           shiro:hasPermission="system:user:audit" >审核</a>
                         <a class="open-popup" data-title="编辑用户" th:attr="data-url=@{'/system/user/edit/'+${item.id}}"
                            shiro:hasPermission="system:user:edit"
                            data-size="600,570" href="#">编辑</a>

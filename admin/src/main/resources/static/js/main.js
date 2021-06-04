@@ -144,31 +144,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
         });
     });
 
-    /* 提交表单数据 */
-    $(document).on("click", ".ajax-register", function (e) {
-        e.preventDefault();
-        var form = $(this).parents("form");
-        var url = form.attr("action");
-        var serializeArray = form.serializeArray();
-        $.post(url, serializeArray, function (result) {
-            if (result.code === 200) {
-                layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
-                setTimeout(function () {
-                    if (result.data === 'submit[refresh]') {
-                        parent.location.reload();
-                        return;
-                    }
-                    if (result.data != null && result.data.url != null) {
-                        window.location.href = result.data.url;
-                    } else {
-                        window.location.href = result.data;
-                    }
-                }, 2000);
-            } else {
-                layer.msg(result.msg, {offset: '15px', time: 3000, icon: 2});
-            }
-        });
-    });
+
 
     /* get方式异步 */
     $(document).on("click", ".ajax-get", function (e) {
@@ -189,6 +165,28 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
             });
         }
     });
+
+    $(document).on("click", ".ajax-get-audit", function (e) {
+        debugger;
+        e.preventDefault();
+        var msg = $(this).data("msg");
+        if (msg !== undefined) {
+            layer.confirm(msg + '？', {
+                title: '提示',
+                btn: ['通过', '不通过']
+            }, function () {
+                $.get(e.target.href, function (result) {
+                    $.fn.Messager(result);
+                });
+            });
+        } else {
+            $.get(e.target.href, function (result) {
+                $.fn.Messager(result);
+            });
+        }
+    });
+
+
 
     // post方式异步-操作状态
     $(".ajax-status").on("click", function (e) {

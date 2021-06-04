@@ -227,6 +227,7 @@ public class UserController {
             String encrypt = ShiroUtil.encrypt(user.getPassword(), salt);
             user.setPassword(encrypt);
             user.setSalt(salt);
+            user.setStatus((byte)2);
         }
 
         // 判断用户名是否重复
@@ -247,8 +248,6 @@ public class UserController {
             EntityBeanUtil.copyProperties(beUser, user, fields);
         }
 
-
-        user.setStatus((byte)2);
         // 保存数据
         userService.save(user);
         return ResultVoUtil.SAVE_SUCCESS;
@@ -424,5 +423,7 @@ public class UserController {
             return ResultVoUtil.error(statusEnum.getMessage() + "失败，请重新操作");
         }
     }
+
+
 
 }

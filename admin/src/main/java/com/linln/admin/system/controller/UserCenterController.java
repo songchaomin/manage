@@ -1,6 +1,9 @@
 package com.linln.admin.system.controller;
 
-import com.linln.admin.system.domain.UserCenter;
+import com.alibaba.fastjson.JSONObject;
+import com.linln.admin.system.config.YamlPropertySourceFactory;
+import com.linln.admin.system.domain.*;
+import com.linln.admin.system.utils.HttpClientUtil;
 import com.linln.component.shiro.ShiroUtil;
 import com.linln.modules.system.domain.Role;
 import com.linln.modules.system.domain.TgLinkLog;
@@ -8,12 +11,13 @@ import com.linln.modules.system.domain.User;
 import com.linln.modules.system.service.RoleService;
 import com.linln.modules.system.service.TgLinkLogService;
 import com.linln.modules.system.service.UserService;
-import com.linln.modules.task.domain.OwnTask;
 import com.linln.modules.task.service.OwnTaskService;
+import net.minidev.json.writer.BeansMapper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +34,14 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping("/userCenter")
+@PropertySource(value = {"classpath:application.yml"},factory = YamlPropertySourceFactory.class)
 public class UserCenterController {
+
+    @Value("${taskUrl}")
+    private  String taskUrl;
+
+    @Value("${robOrder}")
+    private  String robOrderUrl;
 
     @Autowired
     private UserService userService;
@@ -105,20 +116,52 @@ public class UserCenterController {
     }
 
     /**
-     * 我的任务
+     * 我的任务界面
      */
     @GetMapping("/ownTask/index")
     @RequiresPermissions("userCenter:ownTask:index")
-    public String index(Model model, OwnTask ownTask) {
-
-        // 获取用户列表
-        Page<OwnTask> list = ownTaskService.getPageList(ownTask);
-
-        // 封装数据
-        model.addAttribute("list", list.getContent());
-        model.addAttribute("page", list);
+    public String index(Model model) {
         return "/userCenter/ownTask/index";
     }
+
+    @PostMapping("/ownTask/taskList")
+    @ResponseBody
+    public Response< List<Task> >taskList(@RequestBody Request<TaskQuery> param) {
+        // 调用远程接口
+        User user = ShiroUtil.getSubject();
+        User dbUser = userService.getById(user.getId());
+        String result = null;
+        try {
+            TaskQuery taskQuery = new TaskQuery();
+            BeanUtils.copyProperties(taskQuery,dbUser);
+            taskQuery.setPage(param.getPage());
+            taskQuery.setLimit(param.getLimit());
+            result = HttpClientUtil.doPost(taskUrl, JSONObject.toJSONString(taskQuery));
+        } catch (Exception e) {
+            throw new RuntimeException("远程服务器连接失败！");
+        }
+        TaskContent task = JSONObject.parseObject(result, TaskContent.class);
+        Response<List<Task>> response=new Response<>();
+        response.setCode(0);
+        response.setData(task.getContent());
+        response.setCount(task.getTotalElements());
+        return response;
+    }
+
+    @PostMapping("/ownTask/rob")
+    @ResponseBody
+    public  Response robOrder(@RequestBody Task param) {
+        // 调用远程接口
+        User user = ShiroUtil.getSubject();
+        User dbUser = userService.getById(user.getId());
+        param.setCUserId(dbUser.getId());
+        param.setCUserName(dbUser.getUsername());
+        param.setCNickName(dbUser.getNickname());
+        String result = HttpClientUtil.doPost(robOrderUrl, JSONObject.toJSONString(param));
+        Response response = JSONObject.parseObject(result, Response.class);
+        return response;
+    }
+
 
     /**
      * 我的积分
