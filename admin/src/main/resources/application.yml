@@ -50,5 +50,9 @@ spring:
   jackson:
     time-zone: Asia/Shanghai
 
+remoteUrl: http://localhost:8088
 taskUrl: http://localhost:8088/task/2cTaskList
 robOrder: http://localhost:8088/task/robOrder
+myRobOrder: http://localhost:8088/task/myRobTask
+changeRobTaskStatus: http://localhost:8088/robTask/updateRobTask
+

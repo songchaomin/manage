@@ -143,5 +143,11 @@ public class Task implements Serializable {
     private String cNickName;
 
     private  String wangwangId;
+    private  String qq;
+
+    private Long merchantId;
+    private String merchantName;
+
+    private String picUrl;
 
 }

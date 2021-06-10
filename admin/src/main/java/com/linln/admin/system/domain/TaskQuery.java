@@ -1,11 +1,15 @@
 package com.linln.admin.system.domain;
 
+import com.linln.component.excel.annotation.Excel;
 import lombok.Data;
 
 import javax.persistence.Column;
 
 @Data
 public class TaskQuery {
+    private Long id;
+    private String username;
+    private String nickname;
     public String taskName;
     public String taskLable;
     private String birthday;

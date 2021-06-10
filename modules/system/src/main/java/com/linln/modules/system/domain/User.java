@@ -64,7 +64,7 @@ public class User implements Serializable {
     @Excel(value = "状态", dict = "DATA_STATUS")
     private Byte status;
 
-    private Long qq;
+    private String qq;
 
     private String birthday;
     private Long age;// '年龄'

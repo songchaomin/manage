@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Data
-public class TaskContent {
-    public List<Task> content;
+public class TaskContent <T> {
+    public List<T> content;
     public int totalPages;
     public int totalElements;
     public boolean last;

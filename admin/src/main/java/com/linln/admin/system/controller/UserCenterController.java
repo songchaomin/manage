@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.linln.admin.system.config.YamlPropertySourceFactory;
 import com.linln.admin.system.domain.*;
 import com.linln.admin.system.utils.HttpClientUtil;
+import com.linln.common.vo.ResultVo;
 import com.linln.component.shiro.ShiroUtil;
 import com.linln.modules.system.domain.Role;
 import com.linln.modules.system.domain.TgLinkLog;
@@ -12,7 +13,6 @@ import com.linln.modules.system.service.RoleService;
 import com.linln.modules.system.service.TgLinkLogService;
 import com.linln.modules.system.service.UserService;
 import com.linln.modules.task.service.OwnTaskService;
-import net.minidev.json.writer.BeansMapper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author 小懒虫
@@ -40,8 +38,18 @@ public class UserCenterController {
     @Value("${taskUrl}")
     private  String taskUrl;
 
+    @Value("${myRobOrder}")
+    private  String robTaskUrl;
+
+
+    @Value("${remoteUrl}")
+    private  String remoteUrl;
+
     @Value("${robOrder}")
     private  String robOrderUrl;
+
+    @Value("${changeRobTaskStatus}")
+    private  String changeRobTaskStatus;
 
     @Autowired
     private UserService userService;
@@ -116,13 +124,24 @@ public class UserCenterController {
     }
 
     /**
-     * 我的任务界面
+     * 任务大厅界面
      */
     @GetMapping("/ownTask/index")
     @RequiresPermissions("userCenter:ownTask:index")
     public String index(Model model) {
         return "/userCenter/ownTask/index";
     }
+
+
+    @GetMapping("/ownTask/myRobTask")
+    public String myRobTask(Model model) {
+        return "/userCenter/ownTask/myRobTask";
+    }
+    /**
+     * 显示已经抢单的任务
+     * @param param
+     * @return
+     */
 
     @PostMapping("/ownTask/taskList")
     @ResponseBody
@@ -142,6 +161,39 @@ public class UserCenterController {
         }
         TaskContent task = JSONObject.parseObject(result, TaskContent.class);
         Response<List<Task>> response=new Response<>();
+        List<Task> tasks=new ArrayList<>();
+        List content = task.getContent();
+        for (int i=0;i<content.size();i++){
+            JSONObject jsonObject = (JSONObject)content.get(i);
+            Task otask = jsonObject.toJavaObject(Task.class);
+            otask.setPicUrl(remoteUrl);
+            tasks.add(otask);
+        }
+        response.setCode(0);
+        response.setData(tasks);
+        response.setCount(task.getTotalElements());
+        return response;
+    }
+
+
+    @PostMapping("/ownTask/myRobTaskList")
+    @ResponseBody
+    public Response< List<RobTask> >myRobTaskList(@RequestBody Request<TaskQuery> param) {
+        // 调用远程接口
+        User user = ShiroUtil.getSubject();
+        User dbUser = userService.getById(user.getId());
+        String result = null;
+        try {
+            TaskQuery taskQuery = new TaskQuery();
+            BeanUtils.copyProperties(taskQuery,dbUser);
+            taskQuery.setPage(param.getPage());
+            taskQuery.setLimit(param.getLimit());
+            result = HttpClientUtil.doPost(robTaskUrl, JSONObject.toJSONString(taskQuery));
+        } catch (Exception e) {
+            throw new RuntimeException("远程服务器连接失败！");
+        }
+        TaskContent task = JSONObject.parseObject(result, TaskContent.class);
+        Response<List<RobTask>> response=new Response<>();
         response.setCode(0);
         response.setData(task.getContent());
         response.setCount(task.getTotalElements());
@@ -157,10 +209,33 @@ public class UserCenterController {
         param.setCUserId(dbUser.getId());
         param.setCUserName(dbUser.getUsername());
         param.setCNickName(dbUser.getNickname());
+        param.setWangwangId(dbUser.getWangwangId());
+        param.setQq(dbUser.getQq());
         String result = HttpClientUtil.doPost(robOrderUrl, JSONObject.toJSONString(param));
         Response response = JSONObject.parseObject(result, Response.class);
         return response;
     }
+
+
+    @GetMapping("/ownTask/uploadPay/{id}")
+    public  String uploadPay(@PathVariable("id") int  id ,Model model) {
+            model.addAttribute("id",id);
+            model.addAttribute("remoteUrl",remoteUrl);
+            return "/userCenter/ownTask/viewPic";
+    }
+
+
+    @PostMapping("/ownTask/updateRobTask")
+    @ResponseBody
+    public ResultVo updateRobTask(@RequestBody RobTask robTask) {
+        ResultVo resultVo=new ResultVo();
+        String result = HttpClientUtil.doPost(changeRobTaskStatus, JSONObject.toJSONString(robTask));
+        Response response = JSONObject.parseObject(result, Response.class);
+        resultVo.setMsg(response.getMsg());
+        resultVo.setCode(response.getCode());
+        return resultVo;
+    }
+
 
 
     /**
