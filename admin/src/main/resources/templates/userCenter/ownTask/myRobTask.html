@@ -8,6 +8,7 @@
 <div class="layui-card">
     <div class="layui-card-header timo-card-header">
         <span><i class="fa fa-bars"></i>我的任务</span>
+        <i class="layui-icon layui-icon-refresh refresh-btn"></i>
     </div>
     <div class="layui-card-body">
         <div class="layui-row timo-card-screen put-row">
@@ -90,6 +91,11 @@
             if(layEvent === 'detail'){ //查看
 
             } else if(layEvent === 'pay'){ //抢单
+                var robTaskStatus=data.robTaskStatus;
+                if(robTaskStatus!=4){
+                    layer.msg("不是待付款状态，不允许上传任务截图！",{icon:5});
+                    return;
+                }
                //打开新的页面，上传付款凭证
                 var taskId=data.id;
                 window.layerIndex=layer.open({
