@@ -150,4 +150,8 @@ public class Task implements Serializable {
 
     private String picUrl;
 
+    private String pddId;//  '拼多ID',
+    private String jdId;//  '京东ID',
+    private String dyId;//  '抖音ID',
+
 }

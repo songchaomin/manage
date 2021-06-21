@@ -150,6 +150,9 @@ public class UserController {
         if (userService.repeatBywangwangId(user)) {
             throw new ResultException(ResultEnum.USER_wangwang_ERROR);
         }
+
+
+
         // 复制保留无需修改的数据
         if (user.getId() != null) {
             // 不允许操作超级管理员数据
@@ -403,7 +406,7 @@ public class UserController {
      * 设置一条或者多条数据的状态
      */
     @RequestMapping("/status/{param}")
-    @RequiresPermissions("system:user:status")
+    @RequiresPermissions({"system:user:status","system:user:audit"})
     @ResponseBody
     @ActionLog(name = "用户状态", action = StatusAction.class)
     public ResultVo updateStatus(

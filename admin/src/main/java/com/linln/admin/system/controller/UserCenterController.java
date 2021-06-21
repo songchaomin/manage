@@ -211,6 +211,9 @@ public class UserCenterController {
         param.setCNickName(dbUser.getNickname());
         param.setWangwangId(dbUser.getWangwangId());
         param.setQq(dbUser.getQq());
+        param.setPddId(dbUser.getPddId());
+        param.setDyId(dbUser.getDyId());
+        param.setJdId(dbUser.getJdId());
         String result = HttpClientUtil.doPost(robOrderUrl, JSONObject.toJSONString(param));
         Response response = JSONObject.parseObject(result, Response.class);
         return response;

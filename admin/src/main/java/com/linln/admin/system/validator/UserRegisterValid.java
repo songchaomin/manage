@@ -38,10 +38,21 @@ public class UserRegisterValid implements Serializable {
     @NotNull(message = "QQ号不能为空")
     private Long qq;
 
+    @NotEmpty(message = "拼多多账号不能为空")
+    private String pddId;//  '旺旺ID',
+
+    @NotEmpty(message = "京东账号不能为空")
+    private String jdId;//  '旺旺ID',
+
+    @NotEmpty(message = "抖音账号不能为空")
+    private String dyId;//  '旺旺ID',
+
     @NotEmpty(message = "旺旺ID不能为空")
     private String wangwangId;//  '旺旺ID',
 
-    @NotNull(message = "婚姻状态不能为空")
+
+
+
     private Byte marryInfo; // '婚姻状态1：是2：否',
 
     @NotEmpty(message = "子女年龄区间不能为空")
@@ -56,7 +67,6 @@ public class UserRegisterValid implements Serializable {
     @NotEmpty(message = "体重区间不能为空")
     private String weightRange; // '体重区间',
 
-    @NotEmpty(message = "学历不能为空")
     private String xl; //'学历',
 
     @NotEmpty(message = "手机品牌不能为空")
