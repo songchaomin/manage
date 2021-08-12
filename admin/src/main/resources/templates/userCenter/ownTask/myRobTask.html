@@ -92,10 +92,15 @@
 
             } else if(layEvent === 'pay'){ //抢单
                 var robTaskStatus=data.robTaskStatus;
-                if(robTaskStatus!=4){
-                    layer.msg("不是待付款状态，不允许上传任务截图！",{icon:5});
+                if(robTaskStatus<4){
+                    layer.msg("账户审核中，请耐心等待!",{icon:5});
                     return;
                 }
+                if(robTaskStatus>=6){
+                    layer.msg("已发货不用再次上传！",{icon:5});
+                    return;
+                }
+
                //打开新的页面，上传付款凭证
                 var taskId=data.id;
                 window.layerIndex=layer.open({

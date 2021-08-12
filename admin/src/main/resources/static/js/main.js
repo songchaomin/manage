@@ -148,6 +148,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
 
     /* get方式异步 */
     $(document).on("click", ".ajax-get", function (e) {
+        debugger;
         e.preventDefault();
         var msg = $(this).data("msg");
         if (msg !== undefined) {
@@ -167,7 +168,6 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
     });
 
     $(document).on("click", ".ajax-get-audit", function (e) {
-        debugger;
         e.preventDefault();
         var msg = $(this).data("msg");
         if (msg !== undefined) {

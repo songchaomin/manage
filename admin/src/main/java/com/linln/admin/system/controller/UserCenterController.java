@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.linln.admin.system.config.YamlPropertySourceFactory;
 import com.linln.admin.system.domain.*;
 import com.linln.admin.system.utils.HttpClientUtil;
+import com.linln.common.utils.ResultVoUtil;
 import com.linln.common.vo.ResultVo;
 import com.linln.component.shiro.ShiroUtil;
 import com.linln.modules.system.domain.Role;
@@ -12,6 +13,8 @@ import com.linln.modules.system.domain.User;
 import com.linln.modules.system.service.RoleService;
 import com.linln.modules.system.service.TgLinkLogService;
 import com.linln.modules.system.service.UserService;
+import com.linln.modules.task.domain.Integral;
+import com.linln.modules.task.service.IntegralService;
 import com.linln.modules.task.service.OwnTaskService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -62,6 +65,11 @@ public class UserCenterController {
 
     @Autowired
     private TgLinkLogService tgLinkLogService;
+
+
+    @Autowired
+    private IntegralService integralService;
+
 
 
     /**
@@ -248,9 +256,52 @@ public class UserCenterController {
     @RequiresPermissions("userCenter:getIntegral")
     public String getIntegral(Model model) {
         User user = ShiroUtil.getSubject();
-        model.addAttribute("user", user);
+        //1、根据用户名查询该用户的积分
+        Integral integral = integralService.getIntegralByUserName(user.getUsername());
+        if (integral ==null){
+            integral=new Integral();
+        }
+        model.addAttribute("integral", integral);
         return "/userCenter/integral";
     }
+
+
+/**
+ * 显示提取积分界面
+ */
+    @GetMapping("/submitPoint")
+    @RequiresPermissions("userCenter:submitPoint")
+    public String sbmitPoint(Model model) {
+        User user = ShiroUtil.getSubject();
+        //1、根据用户名查询该用户的积分
+        Integral integral = integralService.getIntegralByUserName(user.getUsername());
+        if (integral==null) integral=new Integral();
+        model.addAttribute("integral", integral);
+        return "/userCenter/submitPoint_pop";
+    }
+
+
+    /**
+     * 提现功能
+     */
+    @PostMapping("/auditPoint")
+    @ResponseBody
+    public ResultVo submitPoint(Integer point){
+        if (point==null){
+            return ResultVoUtil.error("提现的积分不能为空");
+        }
+        String username = ShiroUtil.getSubject().getUsername();
+        try {
+            integralService.submitPoint(point,username);
+        } catch (Exception e) {
+            ResultVo resultVo=new ResultVo();
+            resultVo.setCode(-1);
+            resultVo.setMsg(e.getMessage());
+            return resultVo;
+        }
+        return ResultVoUtil.success("提取申请成功，等待审核发放！");
+    }
+
 
 
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<form th:action="@{/userCenter/auditPoint}">
+<div class="layui-form-item" style="margin-top: 20px;">
+    <input type="hidden"  id="point" th:value="${integral.point}">
+    <label class="layui-form-label">提取积分：</label>
+    <div class="layui-input-inline" >
+        <input type="text" id="tgLinkText" name="point"  class="layui-input">
+    </div>
+    <button type="button" class="layui-btn" id="submit_point">提交审请</button>
+
+</div>
+<div class="layui-form-item" >
+    <a style="text-decoration: none;font-size: 10px;color: #eb7350;padding-left:20px"  id="clickAll" >全部积分</a>
+</div>
+</form>
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-2.2.4.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery.mousewheel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins/clipboard.min.js}"></script>
+<script>
+    layui.use(['layer'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        //选择店铺
+        $("#chsShop").click(function () {
+            window.layerIndex = layer.open({
+                content: ['/userCenter/submitPoint', 2]
+                , type: 2
+                , title: '积分提现'
+                , area: ['600px', '400px']
+            });
+        });
+
+        $("#clickAll").click(function(){
+            var point=$("#point").val();
+            $("#tgLinkText").val(point);
+        });
+
+        /* 提交表单数据 */
+        $("#submit_point").click(function(){
+            var form = $(this).parents("form");
+            var url = form.attr("action");
+            var serializeArray = form.serializeArray();
+            $.post(url, serializeArray, function (result) {
+                if (result.data == null) {
+                    result.data = 'submit[refresh]';
+                }
+                if (result.code === 200) {
+                    layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
+                    setTimeout(function () {
+                        if (result.data === 'submit[refresh]') {
+                            parent.location.reload();
+                            return;
+                        }
+                        if (result.data != null && result.data.url != null) {
+                            window.location.href = result.data.url;
+                        } else {
+                            window.location.reload();
+                        }
+                    }, 2000);
+                } else {
+                    layer.msg(result.msg, {offset: '15px', time: 3000, icon: 2});
+                }
+            });
+        });
+
+    });
+
+</script>
+</body>
+</html>

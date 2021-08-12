@@ -428,5 +428,21 @@ public class UserController {
     }
 
 
+    @GetMapping("/userlistinfo")
+    public String userlistinfo(Model model, User user) {
+        // 获取用户列表
+        User sessionUser = ShiroUtil.getSubject();
+        if (!Objects.equals(sessionUser.getUsername(),"admin")) {
+            user.setUsername(sessionUser.getUsername());
+        }
+        Page<User> list = userService.getPageList(user);
+        // 封装数据
+        model.addAttribute("list", list.getContent());
+        model.addAttribute("page", list);
+        model.addAttribute("dept", user.getDept());
+        return "/integral/user_pop";
+    }
+
+
 
 }

@@ -76,6 +76,7 @@ public class User implements Serializable {
     private String pddId;//  '拼多ID',
     private String jdId;//  '京东ID',
     private String dyId;//  '抖音ID',
+    private String zfbId;//  '支付宝ID',
     private String taobaoPic; //  '我的淘宝页面截图',
     private String receveAddress; //  '常用收货地址',
     private String receveAddressPic; //  '常用收货地址图片',

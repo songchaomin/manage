@@ -6,9 +6,9 @@
 <div class="layui-form-item" style="margin-top: 20px;">
     <label class="layui-form-label">我的积分：</label>
     <div class="layui-input-inline" style="width: 300px;">
-        <input type="text" id="tgLinkText"  class="layui-input" th:value="${user.jf}">
+        <input type="text" id="tgLinkText"  class="layui-input" th:value="${integral.point}">
     </div>
-    <button type="button" class="layui-btn" id="#tgLinkText">提现</button>
+    <button type="button" class="layui-btn" id="submitPoint">提现</button>
 </div>
 
 <script th:replace="/common/template :: script"></script>
@@ -16,9 +16,18 @@
 <script type="text/javascript" th:src="@{/js/plugins/jquery.mousewheel.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/plugins/clipboard.min.js}"></script>
 <script>
-    $(document).ready(function(){
-
-
+    layui.use(['layer'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        //选择店铺
+        $("#submitPoint").click(function () {
+            window.layerIndex = layer.open({
+                content: ['/userCenter/submitPoint', 2]
+                , type: 2
+                , title: '积分提现'
+                , area: ['500px', '300px']
+            });
+        });
     });
 
 </script>
