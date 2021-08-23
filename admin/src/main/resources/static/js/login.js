@@ -1,6 +1,18 @@
-if(window.top!==window.self){window.top.location=window.location};
+if(window.top!==window.self){
+    window.top.location=window.location
+};
 layui.use(['element'], function () {
     var $ = layui.jquery;
+    var location = window.location.href;
+    if (location){
+        var startStr = location.indexOf("?");
+        if (startStr!=-1){
+            var username = location.substring(startStr+1,startStr+1+location.length);
+            $("#username").val(username);
+        }
+    }
+    
+    
     $(document).on('click', '.captcha-img', function () {
         var src = this.src.split("?")[0];
         this.src = src + "?" + Math.random();

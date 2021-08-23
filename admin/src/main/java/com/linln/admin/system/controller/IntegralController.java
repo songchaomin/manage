@@ -9,6 +9,8 @@ import com.linln.common.vo.ResultVo;
 import com.linln.component.actionLog.action.SaveAction;
 import com.linln.component.actionLog.annotation.ActionLog;
 import com.linln.component.actionLog.annotation.EntityParam;
+import com.linln.modules.system.domain.User;
+import com.linln.modules.system.service.UserService;
 import com.linln.modules.task.domain.Integral;
 import com.linln.modules.task.domain.IntegralLogger;
 import com.linln.modules.task.service.IntegralLoggerService;
@@ -32,6 +34,10 @@ public class IntegralController {
     private IntegralService integralService;
     @Autowired
     private IntegralLoggerService integralLoggerService;
+
+    @Autowired
+    private UserService userService;
+
 
     @GetMapping("/index")
     @RequiresPermissions("integral:index")
@@ -120,18 +126,34 @@ public class IntegralController {
     @PostMapping("/updateUserIntegral")
     @ResponseBody
     public ResultVo updateUserIntegral(@RequestBody IntegralResquest request){
+        //更新C端用户的积分
         integralService.updateUserIntegral(request.getIntegral(),request.getUserName());
+        //找到C端用户的上级培训师
+        User user=new User();
+        user.setId(Long.valueOf(request.getUserName()));
+        User tran = userService.getTran(user);
+        if (tran!=null){
+            //给培训师增加积分
+            integralService.updateUserIntegral(request.getManageIntegral(),tran.getUsername());
+        }else{
+            //给ADMIN增加积分
+        }
+        addIntegral(request.getUserName(),request.getIntegral(),request.getOperatorName(),"抢单操作c佣金");
+        addIntegral(tran.getUsername(),request.getManageIntegral(),request.getOperatorName(),"抢单操作管理佣金");
+        return  ResultVoUtil.SAVE_SUCCESS;
+    }
+
+    private void addIntegral(String userName,int integral,String operatorName,String type) {
         IntegralLogger integralLogger=new IntegralLogger();
-        integralLogger.setBusinessType("抢单操作");
-        integralLogger.setUserName(request.getUserName());
+        integralLogger.setBusinessType(type);
+        integralLogger.setUserName(userName);
         integralLogger.setOperatorType("增加");
-        integralLogger.setPoint(request.getIntegral());
-        integralLogger.setOperatorName(request.getOperatorName());
+        integralLogger.setPoint(integral);
+        integralLogger.setOperatorName(operatorName);
         integralLogger.setCreateDate(new Date());
         integralLogger.setDeleteFlg((byte)0);
         integralLogger.setAuditStatus((byte)1);
         integralLoggerService.addIntegralLogger(integralLogger);
-        return  ResultVoUtil.SAVE_SUCCESS;
     }
 
 

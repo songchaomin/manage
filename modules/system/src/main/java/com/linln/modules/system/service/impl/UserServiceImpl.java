@@ -193,4 +193,32 @@ public class UserServiceImpl implements UserService {
         }
         return "0";
     }
+
+    @Override
+    public User getTran(User user) {
+        return circleGetTran(user);
+    }
+
+
+    private User circleGetTran(User user) {
+        //判断当前的用户是否是培训师
+        Role role = roleRepository.getRoleByUserId(user.getId());
+        if (!Objects.isNull(role) && Objects.equals(role.getName(),"Tran")){
+            return user;
+        }
+
+        if (user.getPid()!=null){
+            Role pidRole = roleRepository.getRoleByUserId(user.getPid());
+            User pUser = this.getById(user.getPid());
+            if (Objects.isNull(pidRole)){
+                return pUser;
+            }
+            if (Objects.equals(pidRole.getName(),"Tran")){
+                return pUser;
+            }else{
+                return circleGetTran(pUser);
+            }
+        }
+        return null;
+    }
 }

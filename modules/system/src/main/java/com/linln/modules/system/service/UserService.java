@@ -72,4 +72,6 @@ public interface UserService {
 
 
     String getTranName(User user);
+
+    User getTran(User user);
 }

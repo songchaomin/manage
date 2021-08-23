@@ -78,13 +78,13 @@ public class UserRegisterValid implements Serializable {
     @NotEmpty(message = "常用收货地址不能为空")
     private String receveAddress; //  '常用收货地址',
 
-    @NotEmpty(message = "身份证号码图片不能为空")
+   //@NotEmpty(message = "身份证号码图片不能为空")
     private String idCardPic; // '身份证号码图片',
 
-    @NotEmpty(message = "提现银行卡图片不能为空")
+    //@NotEmpty(message = "提现银行卡图片不能为空")
     private String bankCardPic;// '提现银行卡图片',
 
-    @NotEmpty(message = "支付宝图片不能为空")
+    //@NotEmpty(message = "支付宝图片不能为空")
     private String payPic;//  '支付宝图片',
 
     @NotEmpty(message = "我的淘宝页面截图址不能为空")
